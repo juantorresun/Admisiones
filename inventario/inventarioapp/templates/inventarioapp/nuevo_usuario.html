@@ -1,0 +1,27 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+  <h1>Nuevo Usuario</h1>
+  
+  <form method="post" action="crear_usuario">
+    {% csrf_token %}
+    
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" name="nombre"><br/>
+
+    <label for="correo">Correo:</label>
+    <input id="correo" type="text" name="correo"><br/>
+
+    <label for="rol">Rol:</label>
+    <select name="rol" id="rol">
+      <option value="Comprador">Comprador</option>
+      <option value="Vendedor">Vendedor</option>
+      <option value="Admin">Admin</option>
+    </select><br/>
+
+    <label for="contraseña">Contraseña:</label>
+    <input id="contraseña" type="text" name="contraseña"><br/>
+
+    <input type="submit" value="Agregar Usuario">
+  </form>
+{% endblock %}

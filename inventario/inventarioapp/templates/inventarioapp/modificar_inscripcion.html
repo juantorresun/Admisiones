@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+</br></br>
+
+<h1>Modificacion inscripción admisión UN</h1>
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    <h4 class="alert-heading">
+    {{ message }} 
+</h4>
+  </div>
+</div>
+{% endfor %}
+</br>
+{% if Aspirante %}
+<form  method="post" action="update_inscripcion">
+    {% csrf_token %}
+    {% for a in Aspirante%}
+    <div class="form-group row">
+        <label for="periodo" class="col-sm-2 col-form-label">Periodo: </label>
+        <div class="col-sm-10">
+            <input type="hidden" id="peridoid" name="peridoid" value="{{a.8}}">
+           <input  id="periodo" type="text" name="periodo" readonly class="form-control-plaintext" value={{a.0}}>
+        </div>
+      </div>
+    <div class="form-group row">
+        <label for="tipo_doc" class="col-sm-2 col-form-label">Tipo de documento: </label>
+        <div class="col-sm-10">
+            <input  id="tipo_doc" type="text" name="tipo_doc" readonly class="form-control-plaintext" value={{a.1}}>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="documento" class="col-sm-2 col-form-label">Documento: </label>
+        <div class="col-sm-10">
+        <input id="documento" type="number" name="documento" readonly class="form-control-plaintext"value={{a.2}}>
+        </div>
+    </div>
+    <div class="form-group row"> 
+        <label for="pin" class="col-sm-2 col-form-label">Numero PIN: </label>
+        <div class="col-sm-10">
+        <input id="pin" type="number" name="pin" readonly class="form-control-plaintext"value={{a.3}}>
+        </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="correo" class="col-sm-2 col-form-label">Correo: </label>
+      <div class="col-sm-10">
+         <input id="correo" type="email" name="correo" value={{a.4}}>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
+        <div class="col-sm-10">
+        <input id="nombre" type="text" name="nombre" value={{a.5}}>
+        </div>
+    </div>
+    <div class="form-group row"> 
+        <label for="tipo_ad" class="col-sm-2 col-form-label">Tipo de inscripcion: </label>
+        <div class="col-sm-10">
+        <select name="tipo_ad" id="tipo_ad">
+
+            {% for t in tipos_ad %}
+            <option value="{{t.0}}"{% if t.1 == a.6 %} selected{% endif %}>{{t.1}}</option>
+            {% endfor %}
+        </select>
+        </div>
+    </div>
+    <div class="form-group row"> 
+        <label for="Programa" class="col-sm-2 col-form-label">Programa: </label>
+        <div class="col-sm-10">
+        <select name="Programa" id="Programa">
+            {% for p in programas %}
+            <option  value="{{p.0}}"{% if p.1 == a.7 %} selected{% endif %}>{{p.1}}</option>
+            {% endfor %}
+        </select>
+        </div>  
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+        <input type="submit" class="btn btn-info" value="Actualizar inscripcion">
+        </div>
+    </div>
+    {% endfor%}
+</form>
+
+{% else %}
+<tbody>
+    <div class="alert alert-success" role="alert">
+ <tr>
+    <h4 class="alert-heading"><th class="table-active">Lo sentimos. No se encontró inscripción registrada para el numero de indentificación.</th></h4>
+</tr>
+</div>
+</tbody>
+    
+{% endif %}
+
+
+  {% endblock %}

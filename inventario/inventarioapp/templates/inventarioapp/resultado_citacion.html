@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+</br></br>
+
+<h1>Informacion citacion pruebas admisión UN</h1>
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    <h4 class="alert-heading">
+    {{ message }} 
+</h4>
+  </div>
+</div>
+{% endfor %}
+</br>
+{% if Aspirante %}
+    {% csrf_token %}
+    {% for a in Aspirante%}
+    <form>
+        <div class="row">
+            <div class="col">
+                <label for="periodo">Periodo: </label>
+            </div>
+            <div class="col">
+                <input  id="periodo" type="text" name="periodo" readonly class="form-control-plaintext" value={{a.0}}>
+            </div>
+            <div class="col">
+                <label for="pin">Numero PIN: </label>
+              </div>
+              <div class="col">
+                <input id="pin" type="number" name="pin" readonly class="form-control-plaintext"value={{a.3}}>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="tipo_doc">Tipo de documento: </label>
+            </div>
+            <div class="col">
+                <input  id="tipo_doc" type="text" name="tipo_doc" readonly class="form-control-plaintext" value={{a.1}}>
+            </div>
+            <div class="col">
+                <label for="documento">Documento: </label>
+              </div>
+              <div class="col">
+                <input id="documento" type="number" name="documento" readonly class="form-control-plaintext"value={{a.2}}>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="nombre" >Nombre: </label>
+            </div>
+            <div class="col">
+                <input id="nombre" type="text" name="nombre" readonly class="form-control-plaintext" value={{a.5}}>
+            </div>
+            <div class="col">
+                <label for="correo" >Correo: </label>
+              </div>
+              <div class="col">
+                <input id="correo" type="email" name="correo" readonly class="form-control-plaintext" value={{a.4}}>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="tipo_ad" >Tipo de inscripcion: </label>
+            </div>
+            <div class="col">
+                <input id="tipo_ad" type="text" name="tipo_ad" readonly class="form-control-plaintext" value={{a.6}}>
+            </div>
+            <div class="col">
+                <label for="Programa">Programa: </label>
+              </div>
+              <div class="col">
+                <input id="Programa" type="text" name="Programa" readonly class="form-control-plaintext" value={{a.7}}>
+              </div>
+        </div>
+
+    </form>
+
+    {% endfor%}
+
+{% else %}
+<tbody>
+    <div class="alert alert-success" role="alert">
+ <tr>
+    <h4 class="alert-heading"><th class="table-active">Lo sentimos. No se encontró inscripción registrada para el numero de indentificación.</th></h4>
+</tr>
+</div>
+</tbody>
+    
+{% endif %}
+<br/><br/><br/>
+<table class="table table-hover", style="text-align:center;">
+
+    {% if Citacion %}
+    <thead>
+    <tr>
+    <th>Tipo de prueba</th>
+    <th>Fecha presentación</th>
+    <th>Lugar</th>
+    <th>Ubicacion</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for c in Citacion%}
+    <tr>
+    <td>{{c.0}}</td>
+     <td>{{c.1}}</td>
+    <td>{{c.2}}</td>
+    <td>{{c.3}}</td>
+
+    
+    
+      </tr>
+      
+     {% endfor%}
+    </tbody>
+    
+    {% else %}
+    <tbody>
+     <tr>
+     <th class="table-active">Lo sentimos. No hay periodos disponibles para la fecha seleccionada.</th>
+    </tr>
+    </tbody>
+        
+    {% endif %}
+    </table>
+    <div class="form-group row">
+      <div class="col-sm-10">
+      <input type="submit" class="btn btn-info" value="Imprimir citacion">
+      </div>
+  </div>
+  {% endblock %}

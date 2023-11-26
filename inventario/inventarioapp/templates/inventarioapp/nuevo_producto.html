@@ -1,0 +1,36 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+  <h1>Nuevo producto</h1>
+  
+  <form method="post" action="crear_producto">
+    {% csrf_token %}
+    
+    <label for="codigo">Código:</label>
+    <input id="codigo" type="number" name="codigo"><br/>
+
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" name="nombre"><br/>
+
+    <label for="categoria">Categoría:</label>
+    <select name="categoria" id="categoria">
+      <option value="Snack">Snack</option>
+      <option value="Lacteos">Lácteos</option>
+      <option value="Bebidas">Bebidas</option>
+      <option value="Carnes">Carnes</option>
+      <option value="Frutas y verduras">Frutas y verduras</option>
+      <option value="Otros">Otros</option>
+    </select><br/>
+
+    <label for="marca">Marca:</label>
+    <input id="marca" type="text" name="marca"><br/>
+
+    <label for="stock">Stock:</label>
+    <input id="stock" type="number" name="stock"><br/>
+
+    <label for="min_stock">Stock mínimo:</label>
+    <input id="min_stock" type="number" name="min_stock"><br/>
+
+    <input type="submit" value="Agregar producto">
+  </form>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+  <h1>Nueva orden</h1>
+  
+  <form method="post" action="crear_orden">
+    {% csrf_token %}
+    <label for="Fecha solicitud">Fecha solicitud:</label>
+    <input  id="Fecha solicitud" type="text" name="Fecha solicitud" readonly><br/>
+        
+    <script>
+      function actualizarFechaHora() {
+        var ahora = new Date();
+        var fechaHora = ahora.toLocaleDateString() + " " + ahora.toLocaleTimeString();
+        document.getElementById('Fecha solicitud').value = fechaHora;
+      }
+      setInterval(actualizarFechaHora, 1000);
+      actualizarFechaHora();
+    </script>
+
+    <label for="Codigo producto">Codigo producto:</label>
+    <input id="Codigo producto" type="text" name="Codigo producto"><br/>
+
+    <label for="Codigo proveedor">Codigo proveedor:</label>
+    <input id="Codigo proveedor" type="text" name="Codigo proveedor"><br/>
+
+    <label for="Cantidad">Cantidad:</label>
+    <input id="Cantidad" type="text" name="Cantidad"><br/>
+
+    <input type="submit" value="Agregar orden">
+  </form>
+{% endblock %}

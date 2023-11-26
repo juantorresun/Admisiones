@@ -1,0 +1,35 @@
+{% extends "base_admin.html" %}
+{% block content %}
+<h1>Nuevo proceso</h1>
+<form  method="post" action="crear_cupos">
+    {% csrf_token %}
+    <label for="año">Año: </label>
+    <input id="año" type="text" name="año" ><br/>
+    <label for="semestre">Semestre: </label>
+     <!--<input id="semestre" type="text" name="semestre" ><br/>-->
+    <select name="semestre" id="semestre">
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select><br/>
+    <label for="tipo">Tipo: </label>
+    <!--<input id="tipo" type="text" name="tipo" ><br/>-->
+    <select name="tipo" id="tipo">
+        <option value="1">Regular</option>
+        <option value="2">PAES</option>
+        <option value="3">PEAMA</option>
+    </select><br/>
+    <label for="Programa">Programa: </label>
+    <!--<input id="Estado" type="text" name="Estado" ><br/>-->
+    <select name="Programa" id="Programa">
+        {% for p in programas %}
+        <option value="{{p.0}}">{{p.1}}</option>
+        {% endfor %}
+    </select><br/>
+    <label for="cantidad">Cantidad: </label>
+    <input id="cantidad" type="number" name="cantidad" ><br/>
+    <input type="submit" value="Crear">
+</form>
+  
+
+
+  {% endblock %}

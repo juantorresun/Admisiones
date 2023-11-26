@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="wrapper d-flex" >
+
+    <div class="sidebar">
+      {% block sidebar %}
+      <img src="https://images.credly.com/images/d57ca793-0499-419a-a5a8-8a56699c6c6c/blob.png"width="250"
+      height="250">
+      <a class="nav-item nav-link" href="http://127.0.0.1:8000/admisiones/inicio/">Inicio</a>
+      <a class="nav-item nav-link" href="http://localhost:8000/admisiones/inscripcion/">Inscripción</a>
+      <a class="nav-item nav-link" href="http://localhost:8000/admisiones/consulta_mod/">Modificar inscripción</a>
+      <a class="nav-item nav-link" href="http://localhost:8000/admisiones/consulta_citacion/">Citacion a pruebas</a>
+      <a class="nav-item nav-link" href="http://localhost:8000/admisiones/consulta_resultado/">Resultados admision</a>
+      {% endblock %}
+    </div>
+    <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+      </div>
+   </nav>
+
+</body>
+</html>

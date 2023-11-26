@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+</br></br>
+<h1>Inscripción admisión UN</h1>
+</br>
+<form  method="post" action="crear_inscripcion">
+    {% csrf_token %}
+    <div class="form-group row">
+      <label for="correo" class="col-sm-2 col-form-label">Correo: </label>
+      <div class="col-sm-10">
+         <input id="correo" type="email" name="correo" >
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="tipo_doc" class="col-sm-2 col-form-label">Tipo de documento: </label>
+        <div class="col-sm-10">
+        <select name="tipo_doc" id="tipo_doc">
+            <option value="C.C.">C.C.</option>
+            <option value="C.E.">C.E.</option>
+            <option value="T.I.">T.I.</option>
+        </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="documento" class="col-sm-2 col-form-label">Documento: </label>
+        <div class="col-sm-10">
+        <input id="documento" type="number" name="documento" >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
+        <div class="col-sm-10">
+        <input id="nombre" type="text" name="nombre" >
+        </div>
+    </div>
+    <div class="form-group row"> 
+        <label for="tipo_ad" class="col-sm-2 col-form-label">Tipo de inscripcion: </label>
+        <div class="col-sm-10">
+        <select name="tipo_ad" id="tipo_ad">
+            {% for t in tipos_ad %}
+            <option value="{{t.0}}">{{t.1}}</option>
+            {% endfor %}
+        </select>
+        </div>
+    </div>
+    <div class="form-group row"> 
+        <label for="Programa" class="col-sm-2 col-form-label">Programa: </label>
+        <div class="col-sm-10">
+        <select name="Programa" id="Programa">
+            {% for p in programas %}
+            <option value="{{p.0}}">{{p.1}}</option>
+            {% endfor %}
+        </select>
+        </div>
+    </div>
+    <div class="form-group row"> 
+        <label for="pin" class="col-sm-2 col-form-label">Numero PIN: </label>
+        <div class="col-sm-10">
+        <input id="pin" type="number" name="pin" >
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+        <input type="submit" class="btn btn-info" value="Registrar Inscripción">
+        </div>
+    </div>
+</form>
+  
+
+
+  {% endblock %}

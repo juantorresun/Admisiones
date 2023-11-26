@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+</br></br>
+
+<h1>Información resultado pruebas admisión UN</h1>
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    <h4 class="alert-heading">
+    {{ message }} 
+</h4>
+  </div>
+</div>
+{% endfor %}
+</br>
+
+<br/><br/><br/>
+<table class="table table-hover", style="text-align:center;">
+
+    {% if Resultado_examen %}
+
+    <tbody>
+    {% for r in Resultado_examen%}
+    <div class="card-deck">
+      <div class="card ">
+
+        <div class="card-body">
+          <h2 class="card-title">Matemáticas </h2>
+          <h5 class="card-text">{{r.3}}</h5>
+
+        </div>
+      </div>
+      <div class="card">
+
+        <div class="card-body">
+          <h2 class="card-title">Sociales</h2>
+          <h5 class="card-text">{{r.4}}</h5>
+        </div>
+      </div>
+      <div class="card">
+
+        <div class="card-body">
+          <h2 class="card-title">Análisis textual</h2>
+          <h5 class="card-text">{{r.5}}</h5>
+        </div>
+      </div>
+    </div>
+  </br>
+</br>
+    <div class="card-deck">
+      <div class="card">
+
+        <div class="card-body">
+          <h2 class="card-title">Análisis de imagen</h2>
+          <h5 class="card-text">{{r.6}}</h5>
+        </div>
+      </div>
+      <div class="card">
+
+        <div class="card-body">
+          <h2 class="card-title">Examen específico</h2>
+          <h5 class="card-text">{{r.7}}</h5>
+
+        </div>
+      </div>
+      <div class="card bg-warning">
+
+        <div class="card-body">
+          <h2 class="card-title">Puntaje total</h2>
+          <h5 class="card-text">{{r.8}}</h5>
+          <h5 class="card-text">{{r.9}}</h5>
+        </div>
+      </div>
+    </div>
+
+     {% endfor%}
+    </tbody>
+    
+    {% else %}
+    <tbody>
+     <tr>
+     <th class="table-active">Lo sentimos. No se encuentran resultados.</th>
+    </tr>
+    </tbody>
+        
+    {% endif %}
+    </table>
+    <div class="form-group row">
+      <div class="col-sm-10">
+      <input type="submit" class="btn btn-info" value="Imprimir resultado">
+      </div>
+  </div>
+  {% endblock %}

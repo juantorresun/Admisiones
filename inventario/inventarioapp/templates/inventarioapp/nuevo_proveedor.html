@@ -1,0 +1,27 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+  <h1>Nuevo proveedor</h1>
+  
+  <form method="post" action="crear_proveedor">
+    {% csrf_token %}
+    
+    <label for="id">ID:</label>
+    <input id="id" type="text" name="id"><br/>
+
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" name="nombre"><br/>
+
+    <label for="telefono">Telefono:</label>
+    <input id="telefono" type="text" name="telefono"><br/>
+
+    <label for="direccion">Direccion:</label>
+    <input id="direccion" type="text" name="direccion"><br/>
+
+    <label for="correo">Correo:</label>
+    <input id="correo" type="text" name="correo"><br/>
+
+
+    <input type="submit" value="Agregar proveedor">
+  </form>
+{% endblock %}
