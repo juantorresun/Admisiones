@@ -1,0 +1,9 @@
+- Copiar en el equipo local la estructura y los archivos del proyecto registrados en Githu.
+- Instalar Django
+pip install django
+- Instalar la liberia pytz
+pip install pytz
+- Ejecutar el Servidor de Desarrollo para probar la aplicacion desde el directorio en donde se encuentre el archivo manage.py
+python manage.py runserver
+- Acceder al sitio
+http://127.0.0.1:8000/inventarioapp/
