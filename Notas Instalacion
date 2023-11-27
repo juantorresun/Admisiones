@@ -7,3 +7,8 @@ pip install pytz
 python manage.py runserver
 - Acceder al sitio
 http://127.0.0.1:8000/inventarioapp/
+
+
+Info adicional:
+- HTML para los íconos
+https://icons.getbootstrap.com
