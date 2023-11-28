@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render 
-from .models import Inventario, Producto, TablaHashUsuarios, Usuario, ListaProveedores, Proveedor, OrdenCompra
+from .models import Inventario, Producto, TablaHashUsuarios, Usuario, ListaProveedores, Proveedor, OrdenCompra, PilaOrdenes
 from django.contrib import messages
 tabla_usuarios = TablaHashUsuarios()
 usuario1 = Usuario("Juan", "juan@gmail.com", "contraseña123", "comprador")
@@ -31,10 +31,34 @@ def agregar_orden(producto, proveedor, cantidad):
     cola_ordenes.append(orden)
     print(f"Orden de compra agregada: {orden.producto} - Proveedor: {orden.proveedor} - Cantidad: {orden.cantidad}")
 
+agregar_orden("3", "1", 20)
+agregar_orden("2", "1", 20)
+agregar_orden("1", "3", 50)
+agregar_orden("2", "8", 30)
+agregar_orden("3", "1", 20)
+
+
+
+
+pila_ordenes = PilaOrdenes()
+
+
 def procesar_ordenes():
-    while cola_ordenes:
-        orden = cola_ordenes.pop(0)
-        print(f"Procesando orden de compra: {orden.producto} - Proveedor: {orden.proveedor} - Cantidad: {orden.cantidad} - Fecha y hora: {orden.fecha_hora}")
+
+     orden = cola_ordenes.pop(0)
+     pila_ordenes.agregar_orden(orden)
+     orden_info = {
+          'producto': orden.producto,
+          'proveedor': orden.proveedor,
+          'cantidad': orden.cantidad,
+          'fecha_hora': orden.fecha_hora
+          }
+     inventario.actualizar_stock(int(orden.producto), int(orden.cantidad))
+     return orden_info
+
+procesar_ordenes()
+procesar_ordenes()
+
 
 def obtener_ordenes_en_diccionario():
     ordenes_en_diccionario = []
@@ -50,9 +74,9 @@ def obtener_ordenes_en_diccionario():
         ordenes_en_diccionario.append(orden_dict)
     return ordenes_en_diccionario
 
-agregar_orden("1", "3", 50)
-agregar_orden("2", "8", 30)
-agregar_orden("3", "1", 20)
+
+
+
 
 def index(request):
      template = loader.get_template("inventarioapp/login.html")
@@ -149,8 +173,10 @@ def ordenes(request):
      return HttpResponse(template.render( {'Productos': results}, request))    
 
 def nueva_orden(request):
-    context = {"dummy": 'dummy'}
-    return render(request, "inventarioapp/nueva_orden.html", context)
+     template = loader.get_template("inventarioapp/nueva_orden.html")
+     results = inventario.obtener_productos()
+     results1 = lista_proveedores.mostrar_proveedores()
+     return HttpResponse(template.render( {'Productos': results, 'Proveedores': results1}, request))    
 
 def crear_orden(request):
      if request.method=="POST":
@@ -161,3 +187,15 @@ def crear_orden(request):
      template = loader.get_template("inventarioapp/ordenes.html")
      results = obtener_ordenes_en_diccionario()
      return HttpResponse(template.render( {'Productos': results}, request))   
+
+def ordenes_completas(request):
+     template = loader.get_template("inventarioapp/ordenes_completadas.html")
+     results = pila_ordenes.obtener_ordenes_como_diccionario(inventario,lista_proveedores)
+     return HttpResponse(template.render( {'Productos': results}, request))  
+
+def orden_completa(request):
+     procesar_ordenes()
+     template = loader.get_template("inventarioapp/ordenes_completadas.html")
+     results = pila_ordenes.obtener_ordenes_como_diccionario(inventario,lista_proveedores)
+     return HttpResponse(template.render( {'Productos': results}, request))  
+

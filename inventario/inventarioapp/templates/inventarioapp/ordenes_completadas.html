@@ -1,7 +1,7 @@
 {% extends "base_admin.html" %}
 
 {% block content %}
-  <h1>Catálogo de ordenes pendiente</h1>
+  <h1>Catálogo de ordenes completadas</h1>
   <table class="table table-hover" style="text-align:center;">
     {% if Productos %}
       <thead>
@@ -11,19 +11,19 @@
           <th>Codigo proveedor</th>
           <th>Nombre proveedor</th>
           <th>Cantidad</th>
-          <th>Fecha solicitud</th>
+          <th>Fecha de finalizacion</th>
           <th>Operaciones</th>
         </tr>
       </thead>
       <tbody>
         {% for Producto in Productos %}
           <tr>
-            <td>{{ Producto.producto }}</td>
+            <td>{{ Producto.Producto }}</td>
             <td>{{ Producto.nombre_producto }}</td>
-            <td>{{ Producto.proveedor }}</td>
+            <td>{{ Producto.Proveedor }}</td>
             <td>{{ Producto.nombre_proveedor }}</td>
-            <td>{{ Producto.cantidad }}</td>
-            <td>{{ Producto.fecha_hora }}</td>
+            <td>{{ Producto.Cantidad }}</td>
+            <td>{{ Producto.fecha_hora}}</td>
 
             <td>
               <a href="http://localhost:8000/login/{{ Producto.id }}" class="btn btn-light">
@@ -56,13 +56,9 @@
       </tbody>
     {% endif %}
   </table>
-
   <div class="container">
     <div class="row">
-      <a href="http://127.0.0.1:8000/inventarioapp/nueva_orden/" class="btn btn-info">Agregar orden pendiente</a>
-      <a href="http://127.0.0.1:8000/inventarioapp/ordenes_completas/" class="btn btn-info">Historia de ordenes completadas</a>
-      <a href="http://127.0.0.1:8000/inventarioapp/orden_completa/" class="btn btn-info">Completar siguiente orden en cola</a>
+      <a href="http://localhost:8000/inventarioapp/ordenes/" class="btn btn-info">Orden pendiente</a>
     </div>
-    
   </div>
 {% endblock %}

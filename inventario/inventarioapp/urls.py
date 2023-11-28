@@ -15,4 +15,6 @@ urlpatterns = [
     path('ordenes/',views.ordenes),
     path('nueva_orden/',views.nueva_orden),
     path('nueva_orden/crear_orden',views.crear_orden),
+    path('ordenes_completas/',views.ordenes_completas),
+    path('orden_completa/',views.orden_completa),
 ]

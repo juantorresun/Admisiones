@@ -18,11 +18,23 @@
       actualizarFechaHora();
     </script>
 
-    <label for="Codigo producto">Codigo producto:</label>
-    <input id="Codigo producto" type="text" name="Codigo producto"><br/>
 
-    <label for="Codigo proveedor">Codigo proveedor:</label>
-    <input id="Codigo proveedor" type="text" name="Codigo proveedor"><br/>
+  <label for="Codigo producto">Producto: </label>
+  <select name="Codigo producto" id="Codigo producto">
+      {% for p in Productos %}
+      <option  value="{{p.codigo}}">{{p.nombre}}</option>
+      {% endfor %}
+  </select>
+  <br/>
+
+    <label for="Codigo proveedor">Proveedor:</label>
+    <select name="Codigo proveedor" id="Codigo proveedor">
+      
+      {% for p in Proveedores %}
+      <option  value="{{p.id}}">{{p.nombre}}</option>
+      {% endfor %}
+  </select>
+  <br/>
 
     <label for="Cantidad">Cantidad:</label>
     <input id="Cantidad" type="text" name="Cantidad"><br/>

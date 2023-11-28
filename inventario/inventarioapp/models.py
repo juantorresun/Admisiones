@@ -68,6 +68,9 @@ class Inventario:
 
             # Recorrer el subárbol derecho
             self._obtener_productos_recursivo(nodo.derecha, lista_productos)
+    def actualizar_stock(self, codigo, cantidad):
+        producto = self.buscar(codigo)
+        producto.stock += cantidad
 
 import hashlib
 
@@ -184,4 +187,29 @@ class OrdenCompra:
         self.proveedor = proveedor
         self.cantidad = cantidad
         self.fecha_hora = datetime.now(pytz.timezone('America/Bogota'))
+    def actualizar_fecha_hora(self):
+        self.fecha_hora = datetime.now(pytz.timezone('America/Bogota'))
+
+class PilaOrdenes:
+    def __init__(self):
+        self.ordenes = []
+
+    def agregar_orden(self, orden):
+        orden.actualizar_fecha_hora()
+        self.ordenes.append(orden)
+
+    def obtener_ordenes_como_diccionario(self,inventario,lista_proveedores):
+        lista_ordenes = []
+        for orden in self.ordenes:
+            orden_dict = {
+                'Producto': orden.producto,
+                "nombre_producto":(inventario.buscar(int(orden.producto))).nombre,
+                'Proveedor': orden.proveedor,
+                'nombre_proveedor': lista_proveedores.buscar_proveedor_por_codigo(int(orden.proveedor)).nombre,
+                'Cantidad': orden.cantidad,
+                'fecha_hora': orden.fecha_hora.strftime('%Y-%m-%d %H:%M:%S %Z')
+            }
+            lista_ordenes.append(orden_dict)
+        lista_revertida = lista_ordenes[::-1]
+        return lista_revertida
 
