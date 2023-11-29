@@ -17,4 +17,7 @@ urlpatterns = [
     path('nueva_orden/crear_orden',views.crear_orden),
     path('ordenes_completas/',views.ordenes_completas),
     path('orden_completa/',views.orden_completa),
+    path('ventas/',views.venta),
+    path('agregar_venta/',views.agregar_venta),
+    path('agregar_venta/crear_venta',views.crear_venta),
 ]

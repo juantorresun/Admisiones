@@ -72,6 +72,7 @@ class Inventario:
         producto = self.buscar(codigo)
         producto.stock += cantidad
 
+
 import hashlib
 
 class Usuario:
@@ -211,5 +212,35 @@ class PilaOrdenes:
             }
             lista_ordenes.append(orden_dict)
         lista_revertida = lista_ordenes[::-1]
+        return lista_revertida
+
+
+class ventas:
+    def __init__(self, producto, cantidad):
+        self.producto = producto
+        self.cantidad = cantidad
+        self.fecha_hora = datetime.now(pytz.timezone('America/Bogota'))
+
+
+class Pilaventas:
+    def __init__(self):
+        self.ventas = []
+
+    def agregar_compra(self, ventas):
+        self.ventas.append(ventas)
+
+    def obtener_ventas_como_diccionario(self,inventario):
+        lista_ventas = []
+        for orden in self.ventas:
+            orden_dict = {
+                'Producto': orden.producto,
+                "nombre_producto":(inventario.buscar(int(orden.producto))).nombre,
+                "categoria":(inventario.buscar(int(orden.producto))).categoria,
+                "marca":(inventario.buscar(int(orden.producto))).marca,
+                'Cantidad': orden.cantidad,
+                'fecha_hora': orden.fecha_hora.strftime('%Y-%m-%d %H:%M:%S %Z')
+            }
+            lista_ventas.append(orden_dict)
+        lista_revertida = lista_ventas[::-1]
         return lista_revertida
 

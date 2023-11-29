@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render 
-from .models import Inventario, Producto, TablaHashUsuarios, Usuario, ListaProveedores, Proveedor, OrdenCompra, PilaOrdenes
+from .models import Inventario, Producto, TablaHashUsuarios, Usuario, ListaProveedores, Proveedor, OrdenCompra, PilaOrdenes, Pilaventas, ventas
 from django.contrib import messages
 tabla_usuarios = TablaHashUsuarios()
 usuario1 = Usuario("Juan", "juan@gmail.com", "contraseña123", "comprador")
@@ -74,6 +74,17 @@ def obtener_ordenes_en_diccionario():
         ordenes_en_diccionario.append(orden_dict)
     return ordenes_en_diccionario
 
+pila_ventas = Pilaventas()
+
+def registrar_venta(producto,cantidad):
+     
+     venta = ventas(producto, cantidad)
+     pila_ventas.agregar_compra(venta)
+     cantidad=-int(cantidad)
+     inventario.actualizar_stock(int(producto), int(cantidad))
+
+registrar_venta("1", 5)
+registrar_venta("2", 10)
 
 
 
@@ -199,3 +210,22 @@ def orden_completa(request):
      results = pila_ordenes.obtener_ordenes_como_diccionario(inventario,lista_proveedores)
      return HttpResponse(template.render( {'Productos': results}, request))  
 
+def venta(request):
+     template = loader.get_template("inventarioapp/ventas.html")
+
+     results =pila_ventas.obtener_ventas_como_diccionario(inventario)
+     return HttpResponse(template.render( {'Productos': results}, request))   
+
+def agregar_venta(request):
+     template = loader.get_template("inventarioapp/nueva_venta.html")
+     results = inventario.obtener_productos()
+     return HttpResponse(template.render( {'Productos': results}, request)) 
+
+def crear_venta(request):
+     if request.method=="POST":
+          registrar_venta(int(request.POST.get('Codigo producto')),
+                     int(request.POST.get('Cantidad')))
+          
+     template = loader.get_template("inventarioapp/ventas.html")
+     results =pila_ventas.obtener_ventas_como_diccionario(inventario)
+     return HttpResponse(template.render( {'Productos': results}, request))   
